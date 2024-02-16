@@ -1,6 +1,7 @@
 package com.udemy.ordem_servico.service;
 
 import com.udemy.ordem_servico.domain.Tecnico;
+import com.udemy.ordem_servico.domain.dtos.TecnicoDTO;
 import com.udemy.ordem_servico.repositories.TecnicoRepository;
 import com.udemy.ordem_servico.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class TecnicoService {
 
     public List<Tecnico> findAll() {
         return repository.findAll();
+    }
+
+    public TecnicoDTO create(TecnicoDTO obj) {
+        Tecnico tecnico = new Tecnico(null, obj.getNome(), obj.getCpf(), obj.getTelefone());
+        return new TecnicoDTO(repository.save(tecnico));
     }
 
 }
