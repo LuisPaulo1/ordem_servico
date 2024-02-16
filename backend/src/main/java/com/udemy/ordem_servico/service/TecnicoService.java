@@ -5,6 +5,7 @@ import com.udemy.ordem_servico.domain.dtos.TecnicoDTO;
 import com.udemy.ordem_servico.repositories.TecnicoRepository;
 import com.udemy.ordem_servico.service.exceptions.DataIntegratyViolationException;
 import com.udemy.ordem_servico.service.exceptions.ObjectNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,17 @@ public class TecnicoService {
 
         Tecnico tecnico = new Tecnico(null, obj.getNome(), obj.getCpf(), obj.getTelefone());
         return new TecnicoDTO(repository.save(tecnico));
+    }
+
+    public @Valid Tecnico update(@Valid TecnicoDTO obj, Integer id) {
+        Tecnico oldObj = findById(id);
+        if (findByCpf(obj) != null && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).getId(), id)) {
+            throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+        }
+        oldObj.setNome(obj.getNome());
+        oldObj.setCpf(obj.getCpf());
+        oldObj.setTelefone(obj.getTelefone());
+        return repository.save(oldObj);
     }
 
     private Tecnico findByCpf(TecnicoDTO objDTO) {
