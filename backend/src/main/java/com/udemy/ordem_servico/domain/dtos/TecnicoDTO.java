@@ -1,6 +1,7 @@
 package com.udemy.ordem_servico.domain.dtos;
 
 import com.udemy.ordem_servico.domain.Tecnico;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,9 +18,15 @@ public class TecnicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
+	@NotBlank(message = "O campo NOME é requerido")
 	private String nome;
+
 	@CPF
+	@NotBlank(message = "O campo CPF é requerido")
 	private String cpf;
+
+	@NotBlank(message = "O campo TELEFONE é requerido")
 	private String telefone;
 
 	public TecnicoDTO(Tecnico obj) {

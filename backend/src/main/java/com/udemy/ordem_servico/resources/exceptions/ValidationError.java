@@ -7,8 +7,8 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class ValidationError extends StandardError {
 
 	@Serial
