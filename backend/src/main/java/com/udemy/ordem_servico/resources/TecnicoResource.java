@@ -1,6 +1,7 @@
 package com.udemy.ordem_servico.resources;
 
 import com.udemy.ordem_servico.domain.Tecnico;
+import com.udemy.ordem_servico.domain.dtos.TecnicoDTO;
 import com.udemy.ordem_servico.service.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,10 @@ public class TecnicoResource {
     private TecnicoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {
-        Tecnico obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
+        Tecnico tecnico = service.findById(id);
+        TecnicoDTO tecnicoDTO = new TecnicoDTO(tecnico);
+        return ResponseEntity.ok().body(tecnicoDTO);
     }
 
 }
