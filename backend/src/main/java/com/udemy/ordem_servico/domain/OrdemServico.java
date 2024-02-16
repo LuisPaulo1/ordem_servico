@@ -14,7 +14,7 @@ public class OrdemServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataAbertura;
@@ -40,12 +40,12 @@ public class OrdemServico {
         this.setStatus(Status.ABERTO);
     }
 
-    public OrdemServico(Long id, Prioridade prioridade, String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
+    public OrdemServico(Integer id, Prioridade prioridade, String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.dataAbertura = LocalDateTime.now();
-        this.prioridade = (prioridade == null) ? 0 : prioridade.getCod();
+        this.prioridade = (prioridade == null) ? 0 : prioridade.getCodigo();
         this.observacoes = observacoes;
-        this.status = (status == null) ? 0 : status.getCod();
+        this.status = (status == null) ? 0 : status.getCodigo();
         this.tecnico = tecnico;
         this.cliente = cliente;
     }
@@ -55,7 +55,7 @@ public class OrdemServico {
     }
 
     public void setPrioridade(Prioridade prioridade) {
-        this.prioridade = prioridade.getCod();
+        this.prioridade = prioridade.getCodigo();
     }
 
     public Status getStatus() {
@@ -63,6 +63,6 @@ public class OrdemServico {
     }
 
     public void setStatus(Status status) {
-        this.status = status.getCod();
+        this.status = status.getCodigo();
     }
 }

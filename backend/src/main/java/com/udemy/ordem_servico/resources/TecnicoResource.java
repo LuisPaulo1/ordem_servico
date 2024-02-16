@@ -27,13 +27,13 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(tecnicoDTO);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<TecnicoDTO>> findAll() {
         List<TecnicoDTO> list = service.findAll().stream().map(TecnicoDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(list);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO obj) {
         obj = service.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

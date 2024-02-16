@@ -5,16 +5,16 @@ public enum Status {
     ANDAMENTO(1, "ANDAMENTO"),
     ENCERRADO(2, "ENCERRADO");
 
-    private Integer cod;
+    private Integer codigo;
     private String descricao;
 
-    private Status(Integer cod, String descricao) {
-        this.cod = cod;
+    private Status(Integer codigo, String descricao) {
+        this.codigo = codigo;
         this.descricao = descricao;
     }
 
-    public Integer getCod() {
-        return cod;
+    public Integer getCodigo() {
+        return codigo;
     }
 
     public String getDescricao() {
@@ -27,7 +27,7 @@ public enum Status {
         }
 
         for (Status x : Status.values()) {
-            if (cod.equals(x.getCod())) {
+            if (cod.equals(x.getCodigo())) {
                 return x;
             }
         }
