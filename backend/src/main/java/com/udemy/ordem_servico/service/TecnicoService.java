@@ -40,13 +40,17 @@ public class TecnicoService {
 
     public @Valid Tecnico update(@Valid TecnicoDTO obj, Integer id) {
         Tecnico oldObj = findById(id);
-        if (findByCpf(obj) != null && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).getId(), id)) {
-            throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
-        }
+        verificarCPF(obj, id);
         oldObj.setNome(obj.getNome());
         oldObj.setCpf(obj.getCpf());
         oldObj.setTelefone(obj.getTelefone());
         return repository.save(oldObj);
+    }
+
+    private void verificarCPF(TecnicoDTO obj, Integer id) {
+        if (findByCpf(obj) != null && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).getId(), id)) {
+            throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+        }
     }
 
     private Pessoa findByCpf(TecnicoDTO objDTO) {
