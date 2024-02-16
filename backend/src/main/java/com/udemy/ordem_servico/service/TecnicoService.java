@@ -1,5 +1,6 @@
 package com.udemy.ordem_servico.service;
 
+import com.udemy.ordem_servico.domain.Pessoa;
 import com.udemy.ordem_servico.domain.Tecnico;
 import com.udemy.ordem_servico.domain.dtos.TecnicoDTO;
 import com.udemy.ordem_servico.repositories.TecnicoRepository;
@@ -48,8 +49,8 @@ public class TecnicoService {
         return repository.save(oldObj);
     }
 
-    private Tecnico findByCpf(TecnicoDTO objDTO) {
-        Tecnico obj = repository.findByCpf(objDTO.getCpf());
+    private Pessoa findByCpf(TecnicoDTO objDTO) {
+        Pessoa obj = repository.findByCpf(objDTO.getCpf());
         if (obj != null) {
             return obj;
         }
