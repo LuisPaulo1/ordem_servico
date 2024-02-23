@@ -31,9 +31,9 @@ public class TecnicoService {
     }
 
     public TecnicoDTO create(TecnicoDTO obj) {
-        if (Objects.requireNonNull(findByCpf(obj)).getClass().equals(Tecnico.class))
+        Pessoa pessoa = findByCpf(obj).orElse(null);
+        if (pessoa != null)
             throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
-
         Tecnico tecnico = new Tecnico(null, obj.getNome(), obj.getCpf(), obj.getTelefone());
         return new TecnicoDTO(repository.save(tecnico));
     }
@@ -48,17 +48,14 @@ public class TecnicoService {
     }
 
     private void verificarCPF(TecnicoDTO obj, Integer id) {
-        if (findByCpf(obj) != null && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).getId(), id)) {
+        if (findByCpf(obj).isPresent() && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).get().getId(), id)) {
             throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
         }
     }
 
-    private Pessoa findByCpf(TecnicoDTO objDTO) {
+    private Optional<Pessoa> findByCpf(TecnicoDTO objDTO) {
         Pessoa obj = repository.findByCpf(objDTO.getCpf());
-        if (obj != null) {
-            return obj;
-        }
-        return null;
+        return Optional.ofNullable(obj);
     }
 
 }
