@@ -47,6 +47,14 @@ public class TecnicoService {
         return repository.save(oldObj);
     }
 
+    public void delete(Integer id) {
+        Tecnico obj = findById(id);
+        if (!obj.getOrdens().isEmpty()) {
+            throw new DataIntegratyViolationException("Técnico possui Ordens de Serviço, não pode ser deletado!");
+        }
+        repository.deleteById(id);
+    }
+
     private void verificarCPF(TecnicoDTO obj, Integer id) {
         if (findByCpf(obj).isPresent() && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).get().getId(), id)) {
             throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
