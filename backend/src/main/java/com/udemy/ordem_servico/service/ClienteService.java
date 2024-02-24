@@ -1,7 +1,9 @@
 package com.udemy.ordem_servico.service;
 
 import com.udemy.ordem_servico.domain.Cliente;
+import com.udemy.ordem_servico.domain.Pessoa;
 import com.udemy.ordem_servico.domain.dtos.ClienteDTO;
+import com.udemy.ordem_servico.domain.dtos.TecnicoDTO;
 import com.udemy.ordem_servico.repositories.ClienteRepository;
 import com.udemy.ordem_servico.service.exceptions.DataIntegratyViolationException;
 import com.udemy.ordem_servico.service.exceptions.ObjectNotFoundException;
@@ -29,9 +31,9 @@ public class ClienteService {
 	}
 
 	public Cliente create(ClienteDTO obj) {
-		if (Objects.requireNonNull(findByCpf(obj)).getClass().equals(Cliente.class)) {
+		Pessoa pessoa = findByCpf(obj).orElse(null);
+		if (pessoa != null)
 			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
-		}
 		
 		Cliente newObj = new Cliente(null, obj.getNome(), obj.getCpf(), obj.getTelefone());
 		return repository.save(newObj);
@@ -47,17 +49,22 @@ public class ClienteService {
 		return repository.save(oldObj);
 	}
 
+	public void delete(Integer id) {
+		Cliente obj = findById(id);
+		if (!obj.getOrdens().isEmpty()) {
+			throw new DataIntegratyViolationException("Cliente possui Ordens de Serviço, não pode ser deletado!");
+		}
+		repository.deleteById(id);
+	}
+
 	private void verificarCPF(ClienteDTO obj, Integer id) {
-		if (findByCpf(obj) != null && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).getId(), id)) {
+		if (findByCpf(obj).isPresent() && !Objects.equals(Objects.requireNonNull(findByCpf(obj)).get().getId(), id)) {
 			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
 		}
 	}
 
-	private Cliente findByCpf(ClienteDTO objDTO) {
-		Cliente obj = repository.findByCpf(objDTO.getCpf());
-		if (obj != null) {
-			return obj;
-		}
-		return null;
+	private Optional<Pessoa> findByCpf(ClienteDTO objDTO) {
+		Pessoa obj = repository.findByCpf(objDTO.getCpf());
+		return Optional.ofNullable(obj);
 	}
 }
