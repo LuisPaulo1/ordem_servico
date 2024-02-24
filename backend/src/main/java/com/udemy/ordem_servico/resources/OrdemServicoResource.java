@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/ordens")
+@RequestMapping(value = "/os")
 public class OrdemServicoResource {
 
 	@Autowired
