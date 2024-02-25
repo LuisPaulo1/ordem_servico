@@ -49,8 +49,8 @@ public class OrdemServicoService {
 		return repository.save(fromDTO(obj));
 	}
 
-	public @Valid OrdemServico update(@Valid OrdemServicoDTO obj, Integer id) {
-		OrdemServico oldObj = findById(id);
+	public @Valid OrdemServico update(@Valid OrdemServicoDTO obj) {
+		OrdemServico oldObj = findById(obj.getId());
 		oldObj = updateData(obj, oldObj);
 		return repository.save(oldObj);
 	}

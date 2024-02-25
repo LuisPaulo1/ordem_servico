@@ -39,9 +39,9 @@ public class OrdemServicoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<OrdemServicoDTO> update(@Valid @RequestBody OrdemServicoDTO obj, @PathVariable Integer id) {
-		obj = new OrdemServicoDTO(service.update(obj, id));
+	@PutMapping
+	public ResponseEntity<OrdemServicoDTO> update(@Valid @RequestBody OrdemServicoDTO obj) {
+		service.update(obj);
 		return ResponseEntity.ok().build();
 	}
 	
