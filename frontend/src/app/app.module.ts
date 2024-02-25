@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -33,7 +34,8 @@ import { ClienteDeleteComponent } from './views/components/cliente/cliente-delet
 import { OsReadComponent } from './views/components/os/os-read/os-read.component';
 import { OsCreateComponent } from './views/components/os/os-create/os-create.component';
 import { OsUpdateComponent } from './views/components/os/os-update/os-update.component';
-import { OsViewComponent } from './views/components/os/os-view/os-view.component'
+import { OsViewComponent } from './views/components/os/os-view/os-view.component';
+import { OsClosedComponent } from './views/components/os/os-closed/os-closed.component'
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { OsViewComponent } from './views/components/os/os-view/os-view.component
     OsReadComponent,
     OsCreateComponent,
     OsUpdateComponent,
-    OsViewComponent
+    OsViewComponent,
+    OsClosedComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { OsViewComponent } from './views/components/os/os-view/os-view.component
     MatButtonModule,
     MatListModule,
     MatCardModule,
+    MatMenuModule,
     MatTableModule,
     MatSelectModule,
     MatInputModule,
